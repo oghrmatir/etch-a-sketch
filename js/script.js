@@ -6,6 +6,19 @@ container.style.margin = "0 auto";
 container.style.display = "flex";
 container.style.flexDirection = "column";
 
+function getRandomIntInclusive(min, max) {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
+}
+
+function randomizeColor(e) {
+  const red = getRandomIntInclusive(0, 255);
+  const green = getRandomIntInclusive(0, 255);
+  const blue = getRandomIntInclusive(0, 255);
+  e.target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+}
+
 function createGrid(gridSize) {
   container.textContent = "";
 
@@ -19,8 +32,12 @@ function createGrid(gridSize) {
       inner.style.border = "1px solid white";
       inner.style.flex = "1";
   
-      inner.addEventListener("mouseenter", () => {
-        inner.style.backgroundColor = "orange";
+      inner.addEventListener("mouseenter", function (e) {
+        if (randomize.checked === true) {
+          randomizeColor(e);
+        } else {
+          inner.style.backgroundColor = "orange";
+        }
       });
   
       outer.appendChild(inner);
@@ -46,3 +63,5 @@ button.addEventListener("click", () => {
 const DEFAULT_SIZE = 16;
 
 createGrid(gridSize = DEFAULT_SIZE);
+
+const randomize = document.querySelector("#randomize");
