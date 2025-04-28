@@ -17,6 +17,10 @@ for (let i = 0; i < 16; i++) {
     inner.style.border = "1px solid yellow";
     inner.style.flex = "1";
 
+    inner.addEventListener("mouseenter", () => {
+      inner.style.backgroundColor = "orange";
+    });
+
     outer.appendChild(inner);
   }
 
