@@ -19,6 +19,15 @@ function randomizeColor(e) {
   e.target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
 }
 
+function darkeningColor(e) {
+  let opacity = window.getComputedStyle(e.target).opacity;
+  if (opacity > 0) {
+    opacity -= 0.1;
+  }
+  e.target.style.opacity = opacity;
+  console.log(e.target.style.opacity);
+}
+
 function createGrid(gridSize) {
   container.textContent = "";
 
@@ -26,17 +35,23 @@ function createGrid(gridSize) {
     const outer = document.createElement("div");
     outer.style.display = "flex";
     outer.style.flex = "1";
-  
+    outer.style.backgroundColor = "black";
+
     for (let j = 0; j < gridSize; j++) {
       const inner = document.createElement("div");
       inner.style.border = "1px solid white";
       inner.style.flex = "1";
+      inner.style.backgroundColor = "white";
   
       inner.addEventListener("mouseenter", function (e) {
         if (randomize.checked === true) {
           randomizeColor(e);
         } else {
           inner.style.backgroundColor = "orange";
+        }
+
+        if (darkening.checked === true) {
+          darkeningColor(e);
         }
       });
   
@@ -65,3 +80,4 @@ const DEFAULT_SIZE = 16;
 createGrid(gridSize = DEFAULT_SIZE);
 
 const randomize = document.querySelector("#randomize");
+const darkening = document.querySelector("#darkening");
