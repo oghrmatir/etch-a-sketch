@@ -1,10 +1,4 @@
 const container = document.querySelector(".container");
-container.style.border = "1px solid orange";
-container.style.width = "600px";
-container.style.height = "600px";
-container.style.margin = "0 auto";
-container.style.display = "flex";
-container.style.flexDirection = "column";
 
 function getRandomIntInclusive(min, max) {
   const minCeiled = Math.ceil(min);
@@ -47,7 +41,7 @@ function createGrid(gridSize) {
         if (randomize.checked === true) {
           randomizeColor(e);
         } else {
-          inner.style.backgroundColor = "orange";
+          inner.style.backgroundColor = "rgb(138, 64, 64)";
         }
 
         if (darkening.checked === true) {
@@ -65,19 +59,33 @@ function createGrid(gridSize) {
 const button = document.querySelector(".btn");
 
 button.addEventListener("click", () => {
-  let gridSize = 0;
+  // let gridSize = 0;
   while (true) {
     gridSize = +prompt("Enter a new size for the grid: ", 16);
     if (gridSize < 100) {
       break;
     }
   }
+  size.textContent = `Grid size: ${gridSize} x ${gridSize}`;
   createGrid(gridSize);
 });
 
 const DEFAULT_SIZE = 16;
 
-createGrid(gridSize = DEFAULT_SIZE);
+let gridSize = DEFAULT_SIZE;
+
+createGrid(gridSize);
 
 const randomize = document.querySelector("#randomize");
 const darkening = document.querySelector("#darkening");
+
+const size = document.querySelector(".size");
+
+size.textContent = `Grid size: ${gridSize} x ${gridSize}`;
+
+const reset = document.querySelector(".reset");
+
+reset.addEventListener("click", () => {
+  container.textContent = "";
+  createGrid(gridSize = DEFAULT_SIZE);
+});
